@@ -17,16 +17,16 @@ module TSVtoConfig
   def print_httpd_rules(tsv_lines)
     rows = []
     tsv_lines.each do |line|
-      rows.push(line.split(/\t/).reject { |v| v.strip == '' })
+      rows.push(line.strip.split(/\t/).reject { |v| v.strip == '' })
     end
 
     if rows.empty?
-      STDERR.puts 'No valid input detected. Exiting.'
+      warn 'No valid input detected. Exiting.'
       return
     end
 
     # remove empties & sort by From URL desc
-    rows.reject!(&:empty?).sort_by!(&:first).reverse!
+    rows.reject!(&:empty?)&.sort_by!(&:first)&.reverse!
 
     rows.each do |row|
       uris = validate_uris(row)
@@ -72,7 +72,4 @@ module TSVtoConfig
   end
 end
 
-
-if $PROGRAM_NAME == __FILE__
-  TSVtoConfig::print_httpd_rules(STDIN)
-end
+TSVtoConfig.print_httpd_rules(STDIN) if $PROGRAM_NAME == __FILE__
