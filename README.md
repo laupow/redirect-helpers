@@ -1,5 +1,5 @@
 # Spreadsheet to Server Config
-Turn tab-separated values to web server redirect rules. Currently only does apache httpd serverr rules.
+Turn tab-separated values to web server redirect rules. Currently only does apache httpd server rules.
 
 Example tsv input:
 ```
